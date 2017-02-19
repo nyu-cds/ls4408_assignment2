@@ -9,32 +9,6 @@ import timeit
 """
     N-body simulation.
 """
-
-def compute_deltas(x1, x2, y1, y2, z1, z2):
-    return (x1-x2, y1-y2, z1-z2)
-    
-def compute_b(m, dt, dx, dy, dz):
-    mag = compute_mag(dt, dx, dy, dz)
-    return m * mag
-
-def compute_mag(dt, dx, dy, dz):
-    return dt * ((dx * dx + dy * dy + dz * dz) ** (-1.5))
-
-def update_vs(v1, v2, dt, dx, dy, dz, m1, m2):
-    compute_m=dt * ((dx * dx + dy * dy + dz * dz) ** (-1.5))
-    v1[0] -= dx * (m2)*compute_m
-    v1[1] -= dy * (m2)*compute_m
-    v1[2] -= dz * (m2)*compute_m
-    v2[0] += dx * (m1)*compute_m
-    v2[1] += dy * (m1)*compute_m
-    v2[2] += dz * (m1)*compute_m
- 
-
-def update_rs(r, dt, vx, vy, vz):
-    r[0] += dt * vx
-    r[1] += dt * vy
-    r[2] += dt * vz
-
 def advance(BODIES,iter_loop,dt):
     '''
         advance the system one timestep
@@ -58,9 +32,6 @@ def advance(BODIES,iter_loop,dt):
         r[0] += dt * vx
         r[1] += dt * vy
         r[2] += dt * vz
-
-def compute_energy(m1, m2, dx, dy, dz):
-    return (m1 * m2) / ((dx * dx + dy * dy + dz * dz) ** 0.5)
     
 def report_energy(BODIES,liter,e=0.0):
     '''
