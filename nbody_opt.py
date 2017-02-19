@@ -11,12 +11,13 @@ import timeit
 """
 from itertools import combinations
 
-def advance(BODIES,liter,dt):
+def advance(BODIES,liter,iterations,dt):
+
     '''
         advance the system one timestep
     '''
-    
-    for body1, body2 in liter:
+    for _ in range(iterations):
+        for body1, body2 in liter:
             ([x1, y1, z1], v1, m1) = BODIES[body1]
             ([x2, y2, z2], v2, m2) = BODIES[body2]
             (dx, dy, dz) = x1-x2, y1-y2, z1-z2
@@ -27,13 +28,13 @@ def advance(BODIES,liter,dt):
             v2[0] += dx * (m1)*compute_m
             v2[1] += dy * (m1)*compute_m
             v2[2] += dz * (m1)*compute_m
-           
-        
-    for body in BODIES.keys():
-        (r, [vx, vy, vz], m) = BODIES[body]
-        r[0] += dt * vx
-        r[1] += dt * vy
-        r[2] += dt * vz
+               
+            
+        for body in BODIES.keys():
+            (r, [vx, vy, vz], m) = BODIES[body]
+            r[0] += dt * vx
+            r[1] += dt * vy
+            r[2] += dt * vz
     
 def report_energy(BODIES,liter,e=0.0):
     '''
@@ -41,10 +42,10 @@ def report_energy(BODIES,liter,e=0.0):
     '''
     
     for body1, body2 in liter:
-            ((x1, y1, z1), v1, m1) = BODIES[body1]
-            ((x2, y2, z2), v2, m2) = BODIES[body2]
-            (dx, dy, dz) = x1-x2, y1-y2, z1-z2
-            e -= (m1 * m2) / ((dx * dx + dy * dy + dz * dz) ** 0.5) 
+        ((x1, y1, z1), v1, m1) = BODIES[body1]
+        ((x2, y2, z2), v2, m2) = BODIES[body2]
+        (dx, dy, dz) = x1-x2, y1-y2, z1-z2
+        e -= (m1 * m2) / ((dx * dx + dy * dy + dz * dz) ** 0.5) 
             
         
     for body in BODIES.keys():
@@ -85,8 +86,7 @@ def nbody(loops, reference, iterations,BODIES,liter):
     
     for _ in range(loops):
         report_energy(BODIES,liter)
-        for _ in range(iterations):
-            advance(BODIES,liter,0.01)
+        advance(BODIES,liter,iterations,0.01)
         print(report_energy(BODIES,liter))
     
     
@@ -133,5 +133,4 @@ BODIES = {
 liter = list(combinations(BODIES,2))
 
 if __name__ == '__main__':   
-    print(liter)
     print(timeit.timeit(lambda:nbody(100, 'sun', 20000,BODIES,liter), number=1))
