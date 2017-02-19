@@ -9,7 +9,9 @@ import timeit
 """
     N-body simulation.
 """
-def advance(BODIES,iter_loop,dt):
+from itertools import combinations
+
+def advance(BODIES,liter,dt):
     '''
         advance the system one timestep
     '''
@@ -128,7 +130,8 @@ BODIES = {
              1.62824170038242295e-03 * DAYS_PER_YEAR,
              -9.51592254519715870e-05 * DAYS_PER_YEAR],
             5.15138902046611451e-05 * SOLAR_MASS)}
-liter = [('sun', 'jupiter'), ('sun', 'saturn'),('sun', 'uranus'), ('sun', 'neptune'),('jupiter', 'saturn'), ('jupiter', 'uranus'), ('jupiter', 'neptune'),('neptune', 'saturn'),('uranus', 'saturn'),('uranus', 'neptune')]
+liter = list(combinations(BODIES,2))
 
 if __name__ == '__main__':   
+    print(liter)
     print(timeit.timeit(lambda:nbody(100, 'sun', 20000,BODIES,liter), number=1))
