@@ -1,3 +1,12 @@
+'''
+Liwei Song
+04/16/2017
+This program create n processes
+If rank is even, it will print Hello
+If rank is odd, it will print Goodbye
+'''
+
+
 from mpi4py import MPI
 
 comm = MPI.COMM_WORLD

@@ -38,7 +38,7 @@ if rank == 0:
     comm.Send(ranNum, dest=1)
     comm.Recv(ranNum, source=size-1)
     #receieve from the last rank
-    print('Process 1 receieve a number: ' + str(int(ranNum[0])))
+    print('Process 0 receieve a number: ' + str(int(ranNum[0])))
 
 #send buffer number to rank+1
 if rank>0:
