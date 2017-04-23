@@ -35,9 +35,8 @@ def split(all_num,size):
 def user_input():
 	while(True):
 		try:
-			input_size=input('Please input a positive size number:')
 			#size should be positive number
-			array_size=int(input_size)
+			array_size=10000
 			input_lower=input('Please input a number for lower bound:')
 			lower=float(input_lower)
 			input_upper=input('Please input a number for upper bound (larger than lower bound):')
@@ -81,7 +80,7 @@ def output_sorted():
 if __name__=="__main__":
 	s=output_sorted()
 	if rank==0:
-		print(s)
+		print('Finish sorting')
     
 
 
