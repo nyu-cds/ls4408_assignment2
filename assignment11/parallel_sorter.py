@@ -33,7 +33,7 @@ def split(all_num,size):
 	    all_chunks.append(chunk)
 	return all_chunks
 
-#prompts user to enter size of array, lower bound and upper bound of the array
+#generate and array with  size of 10000, lower bound 0 and upper bound 10000
 def user_generate():
 	array_size=10000
 	lower=0
@@ -42,7 +42,7 @@ def user_generate():
 	sep_array=split(all_num,size)
 	return sep_array
 
-
+#sort list in different processor
 def sort_list(sep_array):
     if rank == 0:
     	sep_array= sep_array   
