@@ -1,9 +1,10 @@
 '''
 Liwei Song
 04/22/2017
-It first prompts user to input the size of the array, the lower bound and upper bound
+It first generates 10000 numbers with  the lower bound 0 and upper bound 10000
 by using np.random.randint(lower,higher,array_size).
 Then, the array is splitted into several bins, the number of bins is equal to the size of ranks.
+At the end all sorted arrays in different processers are returned to processor 0.
 '''
 
 import numpy as np
@@ -32,21 +33,12 @@ def split(all_num,size):
 	return all_chunks
 
 #prompts user to enter size of array, lower bound and upper bound of the array
-def user_input():
-	while(True):
-		try:
-			#size should be positive number
-			array_size=10000
-			input_lower=input('Please input a number for lower bound:')
-			lower=float(input_lower)
-			input_upper=input('Please input a number for upper bound (larger than lower bound):')
-			higher=float(input_upper)
-			all_num = np.random.randint(lower,higher,array_size)
-			sep_array=split(all_num,size)
-			break
-		#the upper bound should be larger than the lower bound
-		except ValueError:
-			print('Not valid input array')
+def user_generate():
+	array_size=10000
+	lower=0
+	higher=10000
+	all_num = np.random.randint(lower,higher,array_size)
+	sep_array=split(all_num,size)
 	return sep_array
 
 
@@ -72,7 +64,7 @@ def sort_list(sep_array):
 def output_sorted():
 	sep_array=None
 	if rank==0:
-		sep_array=user_input()
+		sep_array=user_generate()
 	a=sort_list(sep_array)
 	return(a)
 

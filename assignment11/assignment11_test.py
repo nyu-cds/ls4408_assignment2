@@ -1,11 +1,11 @@
 '''
 Liwei Song
 04/22/2017
-This file test the functions in assignment11
+This file test the functions in parallel_sorter
 '''
 
 import unittest
-from assignment11 import *
+from parallel_sorter import *
 import numpy as np
 from mpi4py import MPI
 comm = MPI.COMM_WORLD
@@ -24,17 +24,16 @@ class assignment11_Test(unittest.TestCase):
         self.assertEqual(len(result_split),size)
     # test if the array is really sorted or not
     def test_sort_list(self):
-        split_num=None
+        sep_array=None
         if rank==0:
-            all_num = np.sort(np.random.randint(10000,size=size*10))
-            split_num = np.split(all_num, size)
-            #split_num[0]=np.random.shuffle(split_num[0])
-        sorted=sort_list(split_num)
+            sep_array=user_generate()
+        sorted_l=sort_list(sep_array)
         if rank==0:
-            self.assertEqual(list(sorted),list(np.sort(all_num)))
+            #test scattered arrays are return to processor 0, and it is well sorted.
+            self.assertEqual(list(sorted_l),list(np.sort(np.concatenate(sep_array))))
         else:
-            self.assertEqual(None,sorted)
-
+            self.assertEqual(None,sep_array)
+        
 
 if __name__ == '__main__':
     unittest.main()
