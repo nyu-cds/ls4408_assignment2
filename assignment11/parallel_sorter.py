@@ -1,6 +1,7 @@
 '''
 Liwei Song
 04/22/2017
+run this file mpiexec -n x python parallel_sorter.py, and x could be an interger higher than 0
 It first generates 10000 numbers with  the lower bound 0 and upper bound 10000
 by using np.random.randint(lower,higher,array_size).
 Then, the array is splitted into several bins, the number of bins is equal to the size of ranks.

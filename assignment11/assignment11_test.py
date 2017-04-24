@@ -2,6 +2,7 @@
 Liwei Song
 04/22/2017
 This file test the functions in parallel_sorter
+Run this file by using mpiexec -n x python assignment11_test.py, x is an interger higher than 0.
 '''
 
 import unittest
